@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EventWise - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='generic.css') }}" />
+</head>
+
+<body>
+    
+    <header>
+        <nav class="navbar {{background_choice}}" aria-label="main navigation">
+            <div class="navbar-brand">
+                <span class="navbar-item">
+                    <a class="button {{button_choice}}" href="{{ url_for('home_page') }}">Home</a>
+                </span>
+                {% if not current_user.is_authenticated %} 
+                <span class="navbar-item">
+                    <a class="button {{button_choice}}" href="{{ url_for('login_page') }}">Login</a>
+                </span>
+                {% endif %}
+                {% if current_user.is_authenticated %}  
+                {% if current_user.is_admin%}
+                <span class="navbar-item">
+                    <a class="button {{button_choice}}" href="{{ url_for('users_page') }}">Users</a>
+                </span>
+                <span class="navbar-item">
+                    <a class="button {{button_choice}}" href="{{ url_for('groups_page') }}">Groups</a>
+                </span>
+                {% endif %}
+                {% endif %}
+
+                {% if current_user.is_authenticated %}  
+        
+                <span class="navbar-item">
+                    <a class="button {{button_choice}}" href="{{ url_for('logout_page') }}">LogOut</a>
+                </span>
+            
+                {% endif %}
+
+                
+            </div>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+
+    <footer class="footer1">
+        <small>&copy; 2022-2027, EventWise</small>
+    </footer>
+</body>
+</html>

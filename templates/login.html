@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="container">
+  <!-- Set up form type and the file that will process the user's input -->
+  <!-- Notice how the onsubmit parameter calls our checkform javascript function -->
+  <!-- This checks to make sure the user: -->
+  <!-- (a) didn't leave any field empty; and -->
+  <!-- (b) used only valid alphanumeric characters -->
+  <form action="" method="post" name="login">
+    {{ form.csrf_token }}
+
+    <div class="field">
+      <div class="control">
+        <label class="label">User Name:</label>
+        {{ form.username(required=True, autofocus=True,
+                         class='input is-info',
+                         placeholder='your username') }}
+      </div>
+      {% for error in form.username.errors %}
+        <p class="help has-background-warning">
+            {{ error }}
+        </p>
+      {% endfor %}
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <label class="label">Password:</label>
+        {{ form.password(required=True, class='input is-info',
+                         placeholder='your password') }}
+      </div>
+      {% for error in form.password.errors %}
+        <p class="help has-background-warning">
+            {{ error }}
+        </p>
+      {% endfor %}
+    </div>
+
+    <button class="button is-block is-info is-fullwidth">
+      Login
+    </button>
+  </form>
+  <!-- Close our container div -->
+</div>
+
+<!-- Note: later you may wish to add an include pointer (include) to a common footer file here. -->
+<!-- This is so that all pages share the same footer. Changing the one footer file will change -->
+<!-- the footer of every page on your site. -->
+
+<!-- Close the body of our HTML document -->
+{% endblock %}
