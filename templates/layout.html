@@ -29,8 +29,13 @@
                 <span class="navbar-item">
                     <a class="button {{button_choice}}" href="{{ url_for('groups_page') }}">Groups</a>
                 </span>
+                <span class="navbar-item">
+                    <a class="button {{button_choice}}" href="{{ url_for('events_page') }}">Events</a>
+                </span>
                 {% endif %}
                 {% endif %}
+
+               
 
                 {% if current_user.is_authenticated %}  
         

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EventWise - Events</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='generic.css') }}" />
+</head>
+<script src="{{ url_for('static', filename='events_page.js') }}"></script>
+
+<div class="container4" id="dont">
+
+<form class="block" method="post" id="sendUpdate">
+    {% for item in form %}
+    <div class="left">
+        <label class="label" for="{{item}}">{{item}}:</label><br>
+    </div>   
+    <div class="right">
+        <input class="input" type="text" id="{{item}}" name="{{item}}" value="{{form[item]}}"><br>
+    </div>
+    {%endfor%}
+    <input type="button" value="Submit" id="close_button" onclick="sendUpdate(this.form)">
+</form>
+
+<script>
+    window.onunload = refreshParent;
+    function refreshParent() {
+        window.opener.location.reload();
+    }
+</script>
+</div>

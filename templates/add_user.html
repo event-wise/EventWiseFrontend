@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EventWise - Users</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='generic.css') }}" />
+</head>
+<script src="{{ url_for('static', filename='users_page.js') }}"></script>
+
+<div class="container4" id="dont">
+
+<form class="block" method="post" id="createUser">
+    {% for item in keys %}
+    <div class="left">
+        <label class="label" for="{{item}}">{{item}}:</label><br>
+    </div>
+    {% if item != "role" %}   
+    <div class="right">
+        <input class="input" type="text" id="{{item}}" name="{{item}}"><br>
+    </div>
+    {% else %}
+    <div class="right">
+        <input type="radio" id="admin" name="role" value="admin">
+        <label for="admin">admin</label><br>
+        <input type="radio" id="user" name="role" value="user">
+        <label for="user">user</label><br>
+    </div>
+
+    {% endif %}
+    {%endfor%}
+    <input type="button" value="Submit" id="close_button" onclick="addUserInfo(this.form)">
+</form>
+
+<script>
+    window.onunload = refreshParent;
+    function refreshParent() {
+        window.opener.location.reload();
+    }
+</script>
+</div>

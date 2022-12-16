@@ -26,8 +26,18 @@ def create_app():
     app.add_url_rule("/logout", view_func=logout_page)
     app.add_url_rule("/authToken", view_func=token_request)
     app.add_url_rule("/users", view_func=users_page, methods=["GET"])
-    app.add_url_rule("/update_user", view_func=update_user, methods=["POST"])
     app.add_url_rule("/groups", view_func=groups_page, methods=["GET"])
+    app.add_url_rule("/events", view_func=events_page, methods=["GET"])
+
+    app.add_url_rule("/update_user", view_func=update_user, methods=["POST"])
+    app.add_url_rule("/add_user", view_func=add_user, methods=["POST"])
+
+    app.add_url_rule("/update_group", view_func=update_group, methods=["POST"])
+    app.add_url_rule("/add_group", view_func=add_group, methods=["POST"])
+
+    app.add_url_rule("/update_event", view_func=update_event, methods=["POST"])
+    app.add_url_rule("/add_event", view_func=add_event, methods=["POST"])
+    
     lm.init_app(app)
     lm.login_view = "login_page"
     lm.session_protection = None
@@ -45,8 +55,32 @@ def groups_page():
     return render_template("groups.html")
 
 @login_required
+def events_page():
+    return render_template("events.html")
+
+@login_required
 def update_user():
     return render_template("update_user.html",form=request.form)
+
+@login_required
+def update_group():
+    return render_template("update_group.html",form=request.form)
+
+@login_required
+def update_event():
+    return render_template("update_event.html",form=request.form)
+
+@login_required
+def add_user():
+    return render_template("add_user.html",keys=["username","displayedName","email","location","role","password","confirmPassword"])
+
+@login_required
+def add_group():
+    return render_template("add_group.html",keys=["description","groupId","groupName","location"])
+
+@login_required
+def add_event():
+    return render_template("add_event.html",keys=["dateTime","description","eventId","eventName","groupId","location","type"])
 
 def login_page():
     form = LoginForm()
