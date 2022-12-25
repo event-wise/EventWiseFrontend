@@ -1,4 +1,4 @@
-from flask import Flask , render_template,current_app, request,redirect,url_for,flash,abort,session,jsonify
+from flask import Flask , render_template,current_app, request,redirect,url_for,flash,session,jsonify
 from flask_login import *
 from flask_session import Session
 from datetime import timedelta
@@ -92,18 +92,21 @@ def login_page():
             ,json={"password": password,
                     "username": username},headers=headers)
         responseJSON = dict(response.json())
-        if "ROLE_ADMIN" in responseJSON["roles"]:
-            user = User(username,password)
-            login_user(user)
-            user.is_admin = True
-            user.token = responseJSON["token"]
-            app.config["user"] = user
-            session["user"] = user
-            next_page = request.args.get("next", url_for("home_page"))
-            return redirect(next_page)
-
-        print("Invalid credentials.")
-        flash("Invalid credentials.")
+        
+        try:
+            if "ROLE_ADMIN" in responseJSON["roles"]:
+                user = User(username,password)
+                login_user(user)
+                user.is_admin = True
+                user.token = responseJSON["token"]
+                app.config["user"] = user
+                session["user"] = user
+                next_page = request.args.get("next", url_for("home_page"))
+                return redirect(next_page)
+        except:
+            print(responseJSON)
+            flash(responseJSON["message"])
+            
     return render_template("login.html", form=form)
 
 @login_required

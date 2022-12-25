@@ -31,7 +31,7 @@ footer {
 }
 
 .table_wrap {
-    overflow: hidden;
+    overflow: scroll;
     height: 75%;
     position: absolute;
     width: 100%;

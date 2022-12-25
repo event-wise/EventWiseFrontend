@@ -17,7 +17,11 @@
         <label class="label" for="{{item}}">{{item}}:</label><br>
     </div>   
     <div class="right">
+        {% if item != "groupId" %}
         <input class="input" type="text" id="{{item}}" name="{{item}}" value="{{form[item]}}"><br>
+        {% else %}
+        <input class="input" type="text" id="{{item}}" name="{{item}}" value="{{form[item]}}" disabled><br>
+        {% endif %}
     </div>
     {%endfor%}
     <input type="button" value="Submit" id="close_button" onclick="sendUpdate(this.form)">

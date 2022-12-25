@@ -1,12 +1,9 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
+
 <div class="container">
-  <!-- Set up form type and the file that will process the user's input -->
-  <!-- Notice how the onsubmit parameter calls our checkform javascript function -->
-  <!-- This checks to make sure the user: -->
-  <!-- (a) didn't leave any field empty; and -->
-  <!-- (b) used only valid alphanumeric characters -->
+
   <form action="" method="post" name="login">
     {{ form.csrf_token }}
 

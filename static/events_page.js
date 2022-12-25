@@ -126,15 +126,16 @@ function listEvents(){
 }
 
 async function deleteEvent(event){
-
-    const res = await fetch("http://eventwise-env.eba-ycrptzz8.eu-central-1.elasticbeanstalk.com/api/admin/delete-event?eventId="+event.target.id, 
-    {method: 'DELETE',
-    headers: { Authorization: token},
+    var event_id = event.target.id;
+    const res = await fetch("http://eventwise-env.eba-ycrptzz8.eu-central-1.elasticbeanstalk.com/api/admin/delete-event", 
+    {method: 'POST',
+    headers: { Authorization: token,"Content-Type": "application/json"},
+    body: JSON.stringify({"id":event_id})
     })
     const resp = await res.json();
     console.log(resp)
     if(resp["status"]==200){
-        var index = items.findIndex(o => o.id == event.target.id)
+        var index = items.findIndex(o => o.eventId == event_id)
         if (index !== -1) {
             console.log(index);
             items.splice(index, 1);
@@ -144,7 +145,7 @@ async function deleteEvent(event){
     else{
         alert(resp["error"]);
     }
-    displayUsers();
+    listEvents();
 }
 
 function updateEvent(event){
@@ -204,7 +205,7 @@ async function sendUpdate(form){
 
     }
     else{
-        alert("Update unsuccesful");
+        alert("Update unsuccessful");
         console.log(resp);
     }
     
