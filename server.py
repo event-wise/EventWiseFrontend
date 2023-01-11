@@ -84,6 +84,7 @@ def add_event():
 
 def login_page():
     form = LoginForm()
+    errors = []
     if form.validate_on_submit():
         username = form.data["username"]
         password = form.data["password"]
@@ -105,9 +106,12 @@ def login_page():
                 return redirect(next_page)
         except:
             print(responseJSON)
-            flash(responseJSON["message"])
+            if "message" in responseJSON.keys():
+                errors.append(responseJSON["message"])
+            else:
+                errors.append("Wrong credentials")
             
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form,errors=errors)
 
 @login_required
 def logout_page():

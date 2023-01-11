@@ -2,6 +2,13 @@
 {% block title %}Login{% endblock %}
 {% block content %}
 
+{% for error in errors %}
+<script>
+  var err = "{{error}}";
+  alert(err)
+</script>
+{% endfor %}
+
 <div class="container">
 
   <form action="" method="post" name="login">
@@ -14,11 +21,6 @@
                          class='input is-info',
                          placeholder='your username') }}
       </div>
-      {% for error in form.username.errors %}
-        <p class="help has-background-warning">
-            {{ error }}
-        </p>
-      {% endfor %}
     </div>
 
     <div class="field">
@@ -27,11 +29,6 @@
         {{ form.password(required=True, class='input is-info',
                          placeholder='your password') }}
       </div>
-      {% for error in form.password.errors %}
-        <p class="help has-background-warning">
-            {{ error }}
-        </p>
-      {% endfor %}
     </div>
 
     <button class="button is-block is-info is-fullwidth">
